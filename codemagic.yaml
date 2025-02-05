@@ -11,11 +11,12 @@ workflows:
         environment:
           ios_signing:
             distribution_type: app_store
-            bundle_identifier: io.codemagic.sample.reactnative
+            bundle_identifier: com.codemagic.cmreactnative.io
           vars:
-            XCODE_WORKSPACE: "CodemagicSample.xcworkspace" # <-- Put the name of your Xcode workspace here
-            XCODE_SCHEME: "CodemagicSample" # <-- Put the name of your Xcode scheme here
-            APP_ID: 1555555551 # <-- Put the app id number here. This is found in App Store Connect > App > General > App Information
+            BUNDLE_ID: "com.codemagic.cmreactnative.io"
+            XCODE_WORKSPACE: "cmreactnative.xcworkspace"
+            XCODE_SCHEME: "cmreactnative"
+            APP_ID: 6741536106
           node: v19.7.0
           xcode: latest
           cocoapods: default
@@ -31,7 +32,6 @@ workflows:
                 xcode-project use-profiles --warn-only
             - name: Increment build number
               script: |
-                # Information about getting the latest build version can be found here: https://docs.codemagic.io/knowledge-codemagic/build-versioning/#app-store-or-testflight-latest-build-number
                 cd $CM_BUILD_DIR/ios
                 LATEST_BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number "$APP_ID")
                 agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
@@ -54,9 +54,6 @@ workflows:
               failure: false
           app_store_connect:
             auth: integration
-
-            # Configuration related to TestFlight (optional)
-            # Note: This action is performed during post-processing.
             submit_to_testflight: true
             beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
               - group name 1
