@@ -1,0 +1,6 @@
+module Pods_cmreactnative_cmreactnativeTests {
+  umbrella header "Pods-cmreactnative-cmreactnativeTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
