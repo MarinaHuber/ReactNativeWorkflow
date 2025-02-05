@@ -21,9 +21,6 @@ workflows:
           xcode: latest
           cocoapods: default
         scripts:
-            - name: Run Expo Prebuild
-              script: | 
-                npx expo prebuild
             - name: Set Info.plist values
               script: | 
                 PLIST=$CM_BUILD_DIR/$XCODE_SCHEME/Info.plist
